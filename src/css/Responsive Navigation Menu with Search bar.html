@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Responsive Navigation Menu</title>
+  </head>
+  <style>
+
+     *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins' , sans-serif;
+     }
+
+      body{
+          background: #fff;
+          min-height: 100vh;
+           overflow-x: hidden;
+      }
+
+      header{
+         position: absolute;
+         top:0;
+         left:0;
+         width: 100%;
+         height: 80px;
+         background: #fff;
+         padding: 20px 40px;
+        justify-content: space-between;
+        align-items: center:
+        box-shadow: 0 15px 15px rgba(0,0,0,0.05)
+            }
+
+      .logo{
+         color: red;
+         text-decoration: none;
+         font-size: 1.5em;
+         font-weight: 700;
+         text-transform: uppercase;
+         letter-spacing: 0.1em;
+      }
+
+      .group{
+         display:flex;
+         align-items: center;
+      }
+
+      header ul{
+         position: relative;
+         display: flex;
+         gap:30px;
+
+      }
+
+      header ul li {
+         list-style: none;
+
+
+      }
+
+      header ul li a{
+         position: relative;
+         text-decoration: none;
+         font-size: 1em;
+         color: #333;
+         text-transform: uppercase;
+         letter-spacing: 0.2em;
+      }
+
+      header ul li a::before{
+         content: '';
+         position: absolute;
+         bottom: -2px;
+         width: 100%;
+         height: 2px;
+         background: #333;
+         transform: scaleX(0);
+         transition: transform 0.5s ease-in-out;
+         transform-origin: right;
+      }
+
+      header ul li a:hover::before{
+         transform: scaleX(1);
+         transform-origin: left;
+      }
+
+      header .search{
+         position: relative;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 1.5;
+         z-index: 10;
+         cursor: pointer;
+      }
+
+      .searchBox{
+         position: absolute;
+         right: -100%;
+         width: 100%;
+         height: 100%;
+         display: flex;
+         background: #fff;
+         align-items: center;
+         padding: 0 30px;
+         transition: 0.5s ease-in-out;
+
+      }
+
+      .searchBox.active{
+         right: 0;
+      }
+
+      .searchBox input{
+         width: 100%;
+         border: none;
+         outline: none;
+         height: 50px;
+         color: #333;
+         font-size: 1.25em;
+         background: #fff;
+         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .searchBtn{
+         position: relative;
+         left: 30px;
+         top: 2.5px;
+         transition: 0.5s ease-in-out;
+      }
+
+      .searchBtn.active{
+         left:0;
+      }
+
+
+
+      .closeBtn{
+         opacity: 0;
+         visibility: hidden;
+         transition: 0.5s;
+         scale: 0;
+      }
+
+      .closeBtn.active{
+         opacity: 1;
+         visibility: visible;
+         transition: 0.5s;
+         scale: 1;
+
+      }
+
+      .menuToggle{
+             position:relative;
+             display: none;
+
+         }
+
+
+    @media(max-width:800px){
+
+      .menuToggle{
+          position:absolute;
+          display: block;
+          font-size: 2em;
+          cursor: pointer;
+          transform: translateX(30px);
+          z-index: 10;
+       }
+
+       header .navigation{
+             position: absolute;
+             opacity: 0;
+             visibility: hidden;
+             left:100%;
+
+       }
+
+       .searchBtn{
+          left: 0;
+       }
+
+
+       header.open .navigation{
+          top:80px;
+          opacity: 1;
+          visibility: visible;
+          left: 0;
+          display: flex;
+          flex-direction: column;
+          background: #fff;
+          width: 100%;
+          height: calc(100vh - 80px);
+          padding: 40px;
+          border-top: 1px solid rgba(0,0,0,0.05);
+       }
+
+       header.open .navigation li a{
+          font-size: 1.25em;
+
+       }
+
+       .hide{
+          display: none;
+       }
+
+    }
+  </style>
+
+  <body>
+    <header>
+      <a href="" class="logo">Logo</a>
+      <div class="group">
+        <ul class="navigation">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="search">
+          <span class="icon">
+            <ion-icon name="search-outline" class="searchBtn"></ion-icon>
+            <ion-icon name="close-outline" class="closeBtn"></ion-icon>
+          </span>
+        </div>
+        <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+      </div>
+      <div class="searchBox">
+        <input type="text" placeholder="Search Here..." />
+      </div>
+    </header>
+    <main>
+      <a href="www.hotmail.com">LINK TO HOTMAIL</a>
+    </main>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      let searchBtn = document.querySelector('.searchBtn');
+      let closeBtn = document.querySelector('.closeBtn');
+      let searchBox = document.querySelector('.searchBox');
+      let header = document.querySelector('header');
+      let menuToggle = document.querySelector('.menuToggle');
+      let navigation = document.querySelector('.navigation');
+
+      searchBtn.onclick = function () {
+        searchBox.classList.add('active');
+        closeBtn.classList.add('active');
+        searchBtn.classList.add('active');
+        menuToggle.classList.add('hide');
+        header.classList.remove('open');
+      };
+
+      closeBtn.onclick = function () {
+        searchBox.classList.remove('active');
+        closeBtn.classList.remove('active');
+        searchBtn.classList.remove('active');
+        menuToggle.classList.remove('hide');
+      };
+
+      menuToggle.onclick = function () {
+        header.classList.toggle('open');
+        searchBox.classList.remove('active');
+        closeBtn.classList.remove('active');
+        searchBtn.classList.remove('active');
+      };
+    </script>
+  </body>
+</html>
